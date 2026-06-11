@@ -87,7 +87,7 @@ mongoose.connect(mongoUri, {
 }).then(async () => {
   console.log('Connected to MongoDB');
   await ensureAdminUser();
-  const port = parseInt(process.env.PORT, 10) || 3001;
+  const port = parseInt(process.env.PORT, 10) || 5000;
   app.listen(port, () => {
     console.log(`LMS backend running at http://localhost:${port}`);
   });
