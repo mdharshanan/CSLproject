@@ -1,0 +1,17 @@
+Certificate Notes
+
+Web Development:
+- Build complete websites using HTML, CSS and JavaScript.
+- Test responsive layouts on mobile and desktop.
+
+Data Analytics:
+- Clean data, analyze patterns and present insights.
+- Use charts, SQL and dashboards for reporting.
+
+Cyber Security:
+- Use strong passwords and safe browsing habits.
+- Understand threats, networks and basic protection methods.
+
+Cloud Computing:
+- Learn IaaS, PaaS and SaaS service models.
+- Understand hosting, storage, deployment and cloud security.

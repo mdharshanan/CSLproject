@@ -1,0 +1,21 @@
+Programming Notes
+
+HTML:
+- Use semantic tags such as header, nav, main, section, article and footer.
+- Forms need labels, input types and clear submit buttons.
+
+CSS:
+- Use the box model, flexbox and grid to create layouts.
+- Use media queries for responsive design.
+
+JavaScript:
+- Use variables, functions, arrays and objects for logic.
+- Use DOM events to make pages interactive.
+
+React JS:
+- Build UI using components, props and state.
+- Use hooks such as useState and useEffect.
+
+Node JS:
+- Create backend servers with Express.
+- Build REST APIs with routes, middleware and request handling.

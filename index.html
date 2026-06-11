@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnHub - Online Learning Platform</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <a class="logo" href="index.html">LearnHub</a>
+
+    <nav aria-label="Main navigation">
+        <div class="course-menu">
+            <a href="courses.html">Courses</a>
+
+            <div class="dropdown stable">
+                <div>
+                    <h3>Programming</h3>
+                    <a href="html.html">HTML</a>
+                    <a href="css.html">CSS</a>
+                    <a href="javascript.html">JavaScript</a>
+                    <a href="react.html">React JS</a>
+                    <a href="node.html">Node JS</a>
+                </div>
+
+                <div>
+                    <h3>Data Science</h3>
+                    <a href="python.html">Python</a>
+                    <a href="ai.html">AI</a>
+                    <a href="machine-learning.html">Machine Learning</a>
+                    <a href="sql.html">SQL</a>
+                    <a href="power-bi.html">Power BI</a>
+                </div>
+
+                <div>
+                    <h3>Business</h3>
+                    <a href="marketing.html">Marketing</a>
+                    <a href="finance.html">Finance</a>
+                    <a href="management.html">Management</a>
+                    <a href="leadership.html">Leadership</a>
+                </div>
+
+                <div>
+                    <h3>Certificates</h3>
+                    <a href="web-development.html">Web Development</a>
+                    <a href="cyber-security.html">Cyber Security</a>
+                    <a href="cloud-computing.html">Cloud Computing</a>
+                    <a href="data-analytics.html">Data Analytics</a>
+                </div>
+            </div>
+        </div>
+
+        <a href="#assignments">Assignments</a>
+        <a href="study-materials.html">Study Materials</a>
+        <a href="teacher.html">Teachers</a>
+        <a class="admin-link" href="admin.html">Admin</a>
+    </nav><a class="header-action back-button" href="javascript:history.back()">Back</a><a class="header-action logout-button" data-logout href="#">Logout</a>
+
+    <a class="header-action login-nav-btn" href="login.html" id="header-login-btn">Login</a>
+    <a class="header-action get-started" href="courses.html">Get Started</a>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="hero-left">
+            <p class="eyebrow">Your Gateway to Mastery</p>
+
+            <h1>
+                Learn, Manage &
+                <span>Grow Online</span>
+            </h1>
+
+            <p>
+                Students access courses, assignments and study materials.
+                Teachers manage learning content while admins monitor
+                performance and track progress.
+            </p>
+
+            <div class="hero-badges">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.95 5.98 6.6.96-4.77 4.65 1.13 6.58L12 17.77l-5.91 3.1 1.13-6.58L2.45 8.94l6.6-.96L12 2z"/></svg>Trusted by 15,000+ learners</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1C7 1 3 4.9 3 9.87c0 5.45 5.28 10.14 8.64 12.12.4.24.88.24 1.28 0 3.36-1.98 8.64-6.67 8.64-12.12C21 4.9 17 1 12 1zm0 16c-3.31 0-6-2.69-6-6 0-1.66.68-3.16 1.76-4.24L12 13.99l4.24-4.23C17.32 7.84 18 9.34 18 11c0 3.31-2.69 6-6 6z"/></svg>100+ expert instructors</span>
+            </div>
+
+            <a class="btn" href="courses.html">Start Learning</a>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-panel">
+                <div class="hero-visual">
+                    <div class="hero-visual-ring"></div>
+                    <div class="hero-visual-card">
+                        <span class="hero-visual-tag">Top rated learning</span>
+                        <h3>Skill paths built to help you grow.</h3>
+                        <div class="hero-visual-stats">
+                            <div>
+                                <strong>98%</strong>
+                                <span>Course completion</span>
+                            </div>
+                            <div>
+                                <strong>4.9</strong>
+                                <span>Student rating</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-visual-pill">New launch</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats" aria-label="Platform statistics">
+        <div>
+            <h2>5000+</h2>
+            <p>Students</p>
+        </div>
+
+        <div>
+            <h2>200+</h2>
+            <p>Teachers</p>
+        </div>
+
+        <div>
+            <h2>100+</h2>
+            <p>Courses</p>
+        </div>
+
+        <div>
+            <h2>95%</h2>
+            <p>Success Rate</p>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Why Choose Our LMS?</h2>
+
+        <div class="cards">
+            <article class="card">
+                <h3>Courses</h3>
+                <p>Access learning materials, lessons and recorded classes.</p>
+                <a class="btn card-link" href="courses.html">Open Materials</a>
+            </article>
+
+            <article class="card" id="assignments">
+                <h3>Assignments</h3>
+                <p>Submit assignments and receive feedback online.</p>
+                <a class="btn card-link" href="assignments.html">Open Materials</a>
+            </article>
+
+            <article class="card">
+                <h3>Teacher Panel</h3>
+                <p>Create courses and monitor student performance.</p>
+                <a class="btn card-link" href="teacher.html">Open Materials</a>
+            </article>
+
+            <article class="card" id="materials">
+                <h3>Study Materials</h3>
+                <p>Download notes, references and practice resources.</p>
+                <a class="btn card-link" href="study-materials.html">Open Materials</a>
+            </article>
+
+            <article class="card">
+                <h3>Certificates</h3>
+                <p>Get a certificate after completing lessons, assignments and the final assessment.</p>
+                <a class="btn card-link" href="certificates.html">View Certificates</a>
+            </article>
+        </div>
+    </section>
+        </div>
+</main>
+
+<footer>
+<h2>Tired of Paying for Modules You Don't Use?</h2>
+<p>Switch to an LMS that's faster, smarter, and built for impact.</p>
+<button class="footer-demo-btn">Schedule My Demo</button>
+</footer>
+
+<footer class="bottom">
+<p>© 2026 LearnHub. All rights reserved.</p>
+<div class="social-icons">
+<a href="https://linkedin.com" title="LinkedIn" target="_blank">in</a>
+<a href="https://youtube.com" title="YouTube" target="_blank">▶</a>
+<a href="https://facebook.com" title="Facebook" target="_blank">f</a>
+</div>
+</footer>
+
+<script src="auth.js"></script>
+</body>
+</html>

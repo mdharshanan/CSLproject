@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Science Courses</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.detail-hero,.detail-section{padding:64px 8% 24px;}
+.detail-hero h1{font-size:clamp(36px,6vw,58px);margin-bottom:14px;}
+.detail-hero p,.detail-section p{color:#64748b;line-height:1.7;max-width:820px;}
+.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;padding:24px 8% 72px;}
+.detail-card{background:white;border-radius:8px;box-shadow:0 8px 24px rgba(15,23,42,.08);padding:26px;}
+.detail-card h2{margin-bottom:10px;}
+.detail-card ul{padding-left:18px;color:#475569;line-height:1.8;margin-top:12px;}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;}
+.badge-row span{background:#eef6ff;color:#2563eb;border-radius:999px;font-size:13px;font-weight:700;padding:6px 10px;}
+@media (max-width:800px){.detail-grid{grid-template-columns:1fr}.detail-hero,.detail-section,.detail-grid{padding-left:5%;padding-right:5%;}}
+</style>
+</head>
+<body>
+<header>
+    <a class="logo" href="index.html">LearnHub</a>
+    <nav aria-label="Main navigation">
+        <a href="courses.html">Courses</a>
+        <a href="index.html#assignments">Assignments</a>
+        <a href="study-materials.html">Study Materials</a>
+        <a href="teacher.html">Teachers</a>
+    </nav><a class="header-action back-button" href="javascript:history.back()">Back</a><a class="header-action logout-button" data-logout href="#">Logout</a>
+    <a class="header-action" href="courses.html">Back</a>
+</header>
+
+<main>
+    <section class="detail-hero">
+        <h1>Data Science Courses</h1>
+        <p>Build data skills with Python, AI, machine learning, SQL and reporting tools.</p>
+    </section>
+
+    <section class="detail-grid">
+        <article class="detail-card">
+            <h2><a href="python.html">Python</a></h2>
+            <div class="badge-row"><span>Beginner</span><span>6 Weeks</span><span>24 Lessons</span></div>
+            <p>Learn Python syntax, functions, files and problem solving for data work.</p>
+            <ul><li>Variables and loops</li><li>Functions</li><li>Practice programs</li></ul>
+        </article>
+
+        <article class="detail-card">
+            <h2><a href="machine-learning.html">Machine Learning</a></h2>
+            <div class="badge-row"><span>Advanced</span><span>12 Weeks</span><span>48 Lessons</span></div>
+            <p>Train and test prediction models using regression, classification and evaluation metrics.</p>
+            <ul><li>Model training</li><li>Accuracy checks</li><li>Prediction project</li></ul>
+        </article>
+
+        <article class="detail-card">
+            <h2><a href="ai.html">Artificial Intelligence</a></h2>
+            <div class="badge-row"><span>Intermediate</span><span>8 Weeks</span><span>30 Lessons</span></div>
+            <p>Understand AI concepts, search, automation, natural language and model basics.</p>
+            <ul><li>AI foundations</li><li>Automation workflows</li><li>AI use case project</li></ul>
+        </article>
+
+        <article class="detail-card">
+            <h2><a href="sql.html">SQL</a></h2>
+            <div class="badge-row"><span>Beginner</span><span>5 Weeks</span><span>20 Lessons</span></div>
+            <p>Query relational databases using select, joins, filters, grouping and reports.</p>
+            <ul><li>Tables and queries</li><li>Joins</li><li>Student database task</li></ul>
+        </article>
+
+        <article class="detail-card">
+            <h2><a href="power-bi.html">Power BI</a></h2>
+            <div class="badge-row"><span>Intermediate</span><span>6 Weeks</span><span>22 Lessons</span></div>
+            <p>Create dashboards, charts and business reports using Power BI visuals.</p>
+            <ul><li>Data import</li><li>Charts and filters</li><li>Dashboard project</li></ul>
+        </article>
+    </section>
+</main>
+    <footer>
+        <h2>Tired of Paying for Modules You Don't Use?</h2>
+        <p>Switch to an LMS that's faster, smarter, and built for impact.</p>
+        <button class="footer-demo-btn">Schedule My Demo</button>
+    </footer>
+    <footer class="bottom">
+        <p>© 2026 LearnHub. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="https://linkedin.com" title="LinkedIn" target="_blank">in</a>
+            <a href="https://youtube.com" title="YouTube" target="_blank">▶</a>
+            <a href="https://facebook.com" title="Facebook" target="_blank">f</a>
+        </div>
+    </footer>
+
+<script src="auth.js" data-protected="true"></script></body>
+</html>
+

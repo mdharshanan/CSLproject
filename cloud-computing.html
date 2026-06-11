@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cloud Computing Certificate</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="course-detail.css">
+    </head>
+    <body>
+        <header>
+            <a class="logo" href="index.html">LearnHub</a>
+            <nav>
+                <a href="courses.html">Courses</a>
+                <a href="index.html#assignments">Assignments</a>
+                <a href="study-materials.html">Study Materials</a>
+                <a href="teacher.html">Teachers</a>
+            </nav><a class="header-action back-button" href="javascript:history.back()">Back</a><a class="header-action logout-button" data-logout href="#">Logout</a>
+            <a class="header-action" href="courses.html">Back</a>
+        </header>
+
+        <main>
+            <section class="course-page-hero">
+                <h1>Cloud Computing Certificate</h1>
+                <p>Understand cloud services, hosting, storage, networking, deployment and security basics.</p>
+            </section>
+
+            <section class="course-shell">
+                <div class="course-main">
+                    <h2 class="section-heading">Course Videos</h2>
+                    <div class="video-grid">
+                        <article class="video-card">
+                            <iframe src="https://www.youtube.com/embed/2LaAJq1lB1Q" title="Cloud computing course video" allowfullscreen></iframe>
+                            <h3>Cloud Computing Course</h3>
+                            <p>Learn cloud concepts and service models.</p>
+                        </article>
+                        <article class="video-card">
+                            <iframe src="https://www.youtube.com/embed/M988_fsOSWo" title="Cloud computing basics video" allowfullscreen></iframe>
+                            <h3>Cloud Basics</h3>
+                            <p>Practice hosting, storage and deployment ideas.</p>
+                        </article>
+                    </div>
+
+                    <h2 class="section-heading">Syllabus</h2>
+                    <div class="module-list">
+                        <article class="module-card">
+                            <h3>Module 1: Cloud Basics</h3>
+                            <ul>
+                                <li>IaaS, PaaS, SaaS</li>
+                                <li>Regions</li>
+                                <li>Storage</li>
+                            </ul>
+                        </article>
+                        <article class="module-card">
+                            <h3>Module 2: Deployment</h3>
+                            <ul>
+                                <li>Hosting</li>
+                                <li>Networking</li>
+                                <li>Security</li>
+                            </ul>
+                        </article>
+                        <article class="module-card">
+                            <h3>Module 3: Certificate Project</h3>
+                            <ul>
+                                <li>Cloud plan</li>
+                                <li>Deployment task</li>
+                                <li>Final assessment</li>
+                            </ul>
+                        </article>
+                    </div>
+
+                </div>
+
+                <aside class="course-side">
+                    <h2>Course Info</h2>
+
+                    <div class="info-row">
+                        <strong>Level</strong>
+                        <span>Certificate</span>
+                    </div>
+                    <div class="info-row">
+                        <strong>Duration</strong>
+                        <span>8 Weeks</span>
+                    </div>
+                    <div class="info-row">
+                        <strong>Lessons</strong>
+                        <span>30</span>
+                    </div>
+                    <div class="info-row">
+                        <strong>Project</strong>
+                        <span>Deployment Plan</span>
+                    </div>
+                    <h2>What You Learn</h2>
+                    <ul>
+                        <li>Cloud models</li>
+                        <li>Hosting</li>
+                        <li>Networking</li>
+                        <li>Deployment</li>
+                    </ul>
+            <h2>Fees Structure</h2>
+            <div class="fees-box">
+                <div class="fee-item"><strong>Course Fee</strong><span>$149</span></div>
+                <div class="fee-item"><strong>Installments</strong><span>$55 / month</span></div>
+                <div class="fee-item"><strong>Early Discount</strong><span>10% off for early sign-up</span></div>
+            </div>
+            <p class="fees-note">Secure payments accepted. Contact support for student or group discounts.</p>
+            
+                    <a class="btn" href="courses.html">View All Courses</a>
+                    <button class="btn" id="completeBtn" onclick="markCourseComplete('Cloud Computing')">Mark Course Complete</button>
+                    <p class="status-note" id="courseStatus"></p>
+                    <button class="btn" id="downloadBtn" onclick="downloadCertificate('Cloud Computing')">â¬‡ Download Certificate</button>
+                </aside>
+            </section>
+        </main>
+        <script>
+        function courseStorageKey(courseName) {
+            return 'courseCompleted_' + courseName.replace(/\s+/g, '_');
+        }
+
+        function isCourseComplete(courseName) {
+            return localStorage.getItem(courseStorageKey(courseName)) === 'true';
+        }
+
+        function markCourseComplete(courseName) {
+            localStorage.setItem(courseStorageKey(courseName), 'true');
+            updateCourseStatus(courseName);
+            alert('Course marked complete. Certificate download is now enabled.');
+        }
+
+        function updateCourseStatus(courseName) {
+            var complete = isCourseComplete(courseName);
+            var downloadBtn = document.getElementById('downloadBtn');
+            var status = document.getElementById('courseStatus');
+            var completeBtn = document.getElementById('completeBtn');
+
+            if (downloadBtn) downloadBtn.disabled = !complete;
+            if (status) status.textContent = complete
+                ? 'Course complete â€” certificate download enabled.'
+                : 'Complete the course before downloading the certificate.';
+            if (completeBtn) {
+                completeBtn.disabled = complete;
+                completeBtn.textContent = complete ? 'Course Completed' : 'Mark Course Complete';
+            }
+        }
+
+        function downloadCertificate(courseName) {
+            if (!isCourseComplete(courseName)) {
+                alert('Complete the course first to download the certificate.');
+                return;
+            }
+
+            var studentName = prompt("Enter your name to generate your certificate");
+            if (!studentName) {
+                alert("Please enter your name to download the certificate.");
+                return;
+            }
+            var certificateText =
+                "CERTIFICATE OF COMPLETION\n\n" +
+                "This is to certify that\n\n" +
+                studentName +
+                "\n\nhas completed the course\n\n" +
+                courseName +
+                "\n\nIssued by LMS Platform\n\nCongratulations!\n";
+            var blob = new Blob([certificateText], { type: "text/plain" });
+            var link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = courseName.replace(/\s+/g, "_") + "_Certificate.txt";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            updateCourseStatus('Cloud Computing');
+        });
+        </script>
+        <script src="auth.js" data-protected="true"></script>
+    </body>
+</html>
+

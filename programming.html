@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Programming Courses</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.detail-hero,.detail-section{padding:64px 8% 24px;}
+.detail-hero h1{font-size:clamp(36px,6vw,58px);margin-bottom:14px;}
+.detail-hero p,.detail-section p{color:#64748b;line-height:1.7;max-width:820px;}
+.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;padding:24px 8% 72px;}
+.detail-card{background:white;border-radius:8px;box-shadow:0 8px 24px rgba(15,23,42,.08);padding:26px;}
+.detail-card h2{margin-bottom:10px;}
+.detail-card ul{padding-left:18px;color:#475569;line-height:1.8;margin-top:12px;}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;}
+.badge-row span{background:#eef6ff;color:#2563eb;border-radius:999px;font-size:13px;font-weight:700;padding:6px 10px;}
+@media (max-width:800px){.detail-grid{grid-template-columns:1fr}.detail-hero,.detail-section,.detail-grid{padding-left:5%;padding-right:5%;}}
+</style>
+</head>
+<body>
+<header>
+    <a class="logo" href="index.html">LearnHub</a>
+    <nav aria-label="Main navigation">
+        <a href="courses.html">Courses</a>
+        <a href="index.html#assignments">Assignments</a>
+        <a href="study-materials.html">Study Materials</a>
+        <a href="teacher.html">Teachers</a>
+    </nav><a class="header-action back-button" href="javascript:history.back()">Back</a><a class="header-action logout-button" data-logout href="#">Logout</a>
+    <a class="header-action" href="courses.html">Back</a>
+</header>
+
+<main>
+    <section class="detail-hero">
+        <h1>Programming Courses</h1>
+        <p>Learn web development and programming from basics to full-stack project building.</p>
+    </section>
+
+    <section class="detail-grid">
+        <article class="detail-card">
+            <h2><a href="html.html">HTML</a></h2>
+            <div class="badge-row"><span>Beginner</span><span>2 Weeks</span><span>8 Lessons</span></div>
+            <p>Create clean webpage structure with headings, forms, tables, links and media.</p>
+            <ul><li>Semantic tags</li><li>Forms and inputs</li><li>Portfolio page task</li></ul>
+        </article>
+
+        <article class="detail-card">
+            <h2><a href="css.html">CSS</a></h2>
+            <div class="badge-row"><span>Beginner</span><span>4 Weeks</span><span>16 Lessons</span></div>
+            <p>Style websites with colors, spacing, grid, flexbox, animation and responsive layouts.</p>
+            <ul><li>Box model</li><li>Flexbox and grid</li><li>Responsive landing page</li></ul>
+        </article>
+
+        <article class="detail-card">
+            <h2><a href="javascript.html">JavaScript</a></h2>
+            <div class="badge-row"><span>Intermediate</span><span>8 Weeks</span><span>32 Lessons</span></div>
+            <p>Add logic and interactivity using functions, arrays, DOM events and APIs.</p>
+            <ul><li>Variables and functions</li><li>DOM manipulation</li><li>API mini project</li></ul>
+        </article>
+
+        <article class="detail-card">
+            <h2><a href="react.html">React JS</a></h2>
+            <div class="badge-row"><span>Intermediate</span><span>8 Weeks</span><span>30 Lessons</span></div>
+            <p>Build component-based user interfaces with props, state, routing and forms.</p>
+            <ul><li>Components</li><li>Hooks</li><li>Dashboard project</li></ul>
+        </article>
+
+        <article class="detail-card">
+            <h2><a href="node.html">Node JS</a></h2>
+            <div class="badge-row"><span>Advanced</span><span>8 Weeks</span><span>28 Lessons</span></div>
+            <p>Create backend APIs with Express, routing, middleware and database connection basics.</p>
+            <ul><li>Server setup</li><li>REST APIs</li><li>Authentication basics</li></ul>
+        </article>
+    </section>
+</main>
+<script src="auth.js" data-protected="true"></script></body>
+</html>
+

@@ -1,0 +1,568 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Portal</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,Arial,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg, #f8fafc 0%, #eef7f0 46%, #f7fbff 100%);
+background-attachment:fixed;
+color:#0f172a;
+min-height:100vh;
+}
+
+header{
+background: rgba(255,255,255,0.92);
+backdrop-filter: blur(18px);
+border-bottom:1px solid rgba(148,163,184,.14);
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:100;
+box-shadow:0 12px 32px rgba(15,23,42,.08);
+}
+
+.logo{
+font-size:26px;
+font-weight:900;
+background:linear-gradient(135deg,#16a34a,#2563eb);
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+letter-spacing:-.02em;
+}
+
+nav{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:24px;
+flex:1;
+}
+
+nav a{
+color:#334155;
+text-decoration:none;
+font-weight:600;
+font-size:15px;
+white-space:nowrap;
+transition:color .2s ease;
+}
+
+nav a:hover{
+color:#2563eb;
+}
+
+.header-action{
+margin-left:12px;
+padding:12px 18px;
+border:none;
+border-radius:8px;
+font-weight:700;
+cursor:pointer;
+text-decoration:none;
+transition:all .2s ease;
+}
+
+.back-button{
+background:#64748b;
+color:white;
+}
+
+.logout-button{
+background:#1d4ed8;
+color:white;
+}
+
+.back-button:hover,
+.logout-button:hover{
+transform:translateY(-2px);
+box-shadow:0 10px 24px rgba(15,23,42,.16);
+}
+
+.container{
+padding:60px 8%;
+max-width:1400px;
+margin:0 auto;
+}
+
+.section-heading{
+font-size:32px;
+font-weight:900;
+margin-bottom:36px;
+letter-spacing:-.02em;
+color:#0f172a;
+}
+
+.card{
+background:rgba(255,255,255,.96);
+padding:36px;
+margin-bottom:32px;
+border-radius:24px;
+border:1px solid rgba(148,163,184,.18);
+box-shadow:0 30px 100px rgba(15,23,42,.12);
+backdrop-filter: blur(16px);
+transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover{
+transform:translateY(-4px);
+box-shadow:0 40px 120px rgba(15,23,42,.16);
+}
+
+.card h2{
+font-size:26px;
+margin-bottom:18px;
+letter-spacing:-.01em;
+color:#0f172a;
+}
+
+.card p{
+color:#475569;
+line-height:1.7;
+margin-bottom:16px;
+font-size:15px;
+}
+
+input,select,textarea{
+width:100%;
+padding:16px;
+margin-top:10px;
+margin-bottom:15px;
+border:1px solid rgba(148,163,184,.2);
+border-radius:16px;
+font-size:16px;
+background:#f8fafc;
+transition:all .25s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+outline:none;
+box-shadow:0 0 0 4px rgba(37,99,235,.12);
+border-color:rgba(37,99,235,.4);
+background:white;
+}
+
+button{
+background: linear-gradient(135deg,#16a34a,#2563eb);
+color:white;
+border:none;
+padding:16px 24px;
+border-radius:999px;
+cursor:pointer;
+font-weight:700;
+font-size:16px;
+letter-spacing:.02em;
+transition:all .2s ease;
+}
+
+button:hover{
+transform:translateY(-2px);
+box-shadow:0 18px 40px rgba(22,163,74,.24);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+table th{
+background:linear-gradient(135deg,#16a34a,#2563eb);
+color:white;
+padding:16px;
+text-align:left;
+font-weight:700;
+font-size:15px;
+letter-spacing:.04em;
+border-radius:12px 12px 0 0;
+}
+
+table td{
+padding:16px;
+border-bottom:1px solid rgba(148,163,184,.12);
+color:#334155;
+font-size:15px;
+}
+
+table tr:hover td{
+background:rgba(37,99,235,.04);
+}
+
+table tr:last-child td{
+border-bottom:none;
+}
+
+.teacher-message{
+margin-top:12px;
+font-weight:700;
+color:#166534;
+}
+
+.teacher-message.error{
+color:#b91c1c;
+}
+
+.teacher-list{
+margin-top:18px;
+padding-left:18px;
+color:#334155;
+line-height:1.8;
+}
+
+.dashboard-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:24px;
+margin-bottom:48px;
+}
+
+.bottom{
+background:#020617;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:16px;
+padding:18px 8%;
+}
+
+.bottom p{
+margin:0;
+}
+
+.social-icons{
+display:flex;
+gap:10px;
+}
+
+.social-icons a{
+width:34px;
+height:34px;
+display:inline-flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+background:#1e293b;
+color:white;
+text-decoration:none;
+font-weight:800;
+}
+
+@media (max-width:768px){
+header{
+flex-wrap:wrap;
+padding:12px 5%;
+}
+
+nav{
+order:3;
+width:100%;
+flex-wrap:wrap;
+justify-content:flex-start;
+gap:12px;
+padding-top:12px;
+}
+
+.container{
+padding:40px 5%;
+}
+
+.card{
+padding:24px;
+}
+
+.section-heading{
+font-size:26px;
+margin-bottom:24px;
+}
+
+table{
+font-size:14px;
+}
+
+table th,table td{
+padding:12px;
+}
+
+.dashboard-grid{
+grid-template-columns:1fr;
+}
+
+.bottom{
+flex-direction:column;
+}
+}
+</style>
+
+</head>
+<body>
+
+<header>
+<div class="logo">Teacher Portal</div>
+
+<nav>
+<a href="#login">Login</a>
+<a href="#register">Register</a>
+<a href="#teachers">Teachers</a>
+<a href="#students">Students</a>
+<a href="courses.html">Courses</a>
+<a href="#assignments">Assignments</a>
+</nav><a class="header-action back-button" href="javascript:history.back()">Back</a><a class="header-action logout-button" data-logout href="#">Logout</a>
+</header>
+
+<div class="container">
+
+<h1 class="section-heading">Teacher Portal</h1>
+
+<!-- Authentication Section -->
+<div class="dashboard-grid">
+<!-- Login -->
+
+<div class="card" id="login">
+<h2>Teacher Login</h2>
+<p>Access your teacher dashboard and manage your courses.</p>
+
+<form id="teacher-login-form">
+<input id="teacher-login-email" type="email" placeholder="Email" required>
+
+<input id="teacher-login-password" type="password" placeholder="Password" required>
+
+<button type="submit">Login</button>
+<p class="teacher-message" data-teacher-login-message></p>
+</form>
+</div>
+
+<!-- Register -->
+
+<div class="card" id="register">
+<h2>Teacher Registration</h2>
+<p>Create a new teacher account on our platform.</p>
+
+<form id="teacher-register-form">
+<input id="teacher-register-name" type="text" placeholder="Teacher Name" required>
+
+<input id="teacher-register-email" type="email" placeholder="Email" required>
+
+<input id="teacher-register-department" type="text" placeholder="Department" required>
+
+<input id="teacher-register-password" type="password" placeholder="Password" required>
+
+<button type="submit">Register</button>
+<p class="teacher-message" data-teacher-register-message></p>
+</form>
+</div>
+</div>
+
+<!-- Teacher Profiles -->
+
+<div class="card" id="teachers">
+<h2>Teacher Profiles</h2>
+<p>Browse our expert instructors and their qualifications.</p>
+
+<table id="teacher-profiles-table">
+<tr>
+<th>Name</th>
+<th>Qualification</th>
+<th>Department</th>
+<th>Salary</th>
+<th>Contact</th>
+</tr>
+<tr>
+<td>Ms. Priya</td>
+<td>M.Sc. Computer Science</td>
+<td>Data Science</td>
+<td>$2,400 / month</td>
+<td>priya@lms.edu</td>
+</tr>
+<tr>
+<td>Mr. Anand</td>
+<td>B.Tech Web Development</td>
+<td>Programming</td>
+<td>$2,100 / month</td>
+<td>anand@lms.edu</td>
+</tr>
+<tr>
+<td>Ms. Nisha</td>
+<td>MBA Marketing</td>
+<td>Business</td>
+<td>$2,250 / month</td>
+<td>nisha@lms.edu</td>
+</tr>
+</table>
+</div>
+
+<!-- Student Details -->
+
+<div class="card" id="students">
+
+<h2>Student Details</h2>
+
+<table>
+
+<tr>
+<th>Name</th>
+<th>Course</th>
+<th>Attendance</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Akhil</td>
+<td>Web Development</td>
+<td>95%</td>
+<td>Active</td>
+</tr>
+
+<tr>
+<td>Arun</td>
+<td>React JS</td>
+<td>90%</td>
+<td>Active</td>
+</tr>
+
+<tr>
+<td>Kumar</td>
+<td>MongoDB</td>
+<td>88%</td>
+<td>Active</td>
+</tr>
+
+</table>
+</div>
+
+<!-- Course Management -->
+<div class="dashboard-grid">
+<div class="card" id="courses">
+<h2>Create Course</h2>
+<p>Add a new course to your teaching portfolio.</p>
+
+<form id="teacher-course-form">
+<input id="teacher-course-title" type="text" placeholder="Course Name" required>
+
+<input id="teacher-course-category" type="text" placeholder="Category" required>
+
+<input id="teacher-course-teacher" type="text" placeholder="Teacher Name" required>
+
+<input id="teacher-course-duration" type="text" placeholder="Duration, e.g. 8 weeks" required>
+
+<input id="teacher-course-start" type="date" required>
+
+<textarea id="teacher-course-description" placeholder="Course Description" style="min-height:120px;"></textarea>
+
+<button type="submit">Create Course</button>
+<p class="teacher-message" data-teacher-course-message></p>
+</form>
+<ul class="teacher-list" data-teacher-course-list></ul>
+</div>
+
+<div class="card">
+<h2>Upload Study Materials</h2>
+<p>Upload notes and study materials for your students.</p>
+
+<form id="teacher-material-form">
+<input id="teacher-material-file" type="file" required>
+
+<button type="submit">Upload Notes</button>
+<p class="teacher-message" data-teacher-material-message></p>
+</form>
+</div>
+</div>
+
+<div class="card">
+<h2>Upload Demo Video</h2>
+<p>Share video lectures and demonstrations with your students.</p>
+
+<form id="teacher-video-form">
+<input id="teacher-video-file" type="file" accept="video/*" required>
+
+<button type="submit">Upload Video</button>
+<p class="teacher-message" data-teacher-video-message></p>
+</form>
+</div>
+
+<!-- Assignments -->
+
+<div class="card" id="assignments">
+<h2>Student Assignment Review</h2>
+<p>Check and evaluate student assignments to provide feedback.</p>
+
+<table>
+
+<tr>
+<th>Student</th>
+<th>Assignment</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>Akhil</td>
+<td>HTML Project</td>
+<td>Submitted</td>
+<td><button class="review-assignment" type="button" style="padding:10px 16px;margin:0;">Check</button></td>
+</tr>
+
+<tr>
+<td>Arun</td>
+<td>React Task</td>
+<td>Submitted</td>
+<td><button class="review-assignment" type="button" style="padding:10px 16px;margin:0;">Check</button></td>
+</tr>
+
+</table>
+<p class="teacher-message" data-teacher-assignment-message></p>
+
+</div>
+
+<!-- Results -->
+
+<div class="card">
+
+<h2>Publish Marks</h2>
+<p>Publish exam results and student performance scores.</p>
+
+<form id="teacher-result-form">
+<input id="teacher-result-student" type="text" placeholder="Student Name" required>
+
+<input id="teacher-result-marks" type="number" placeholder="Marks" min="0" max="100" required>
+
+<button type="submit">Publish Result</button>
+<p class="teacher-message" data-teacher-result-message></p>
+</form>
+<ul class="teacher-list" data-teacher-result-list></ul>
+
+</div>
+
+
+
+
+</div>
+
+<footer class="bottom">
+<p>© 2026 LearnHub. All rights reserved.</p>
+<div class="social-icons">
+<a href="https://linkedin.com" title="LinkedIn" target="_blank">in</a>
+<a href="https://youtube.com" title="YouTube" target="_blank">▶</a>
+<a href="https://facebook.com" title="Facebook" target="_blank">f</a>
+</div>
+</footer>
+
+<script src="auth.js"></script>
+<script src="teacher.js"></script></body>
+</html>
+
+

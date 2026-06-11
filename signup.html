@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account - LearnHub LMS</title>
+  <meta name="description" content="Sign up for LearnHub LMS and start learning today. Access 100+ courses, assignments and certificates.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(167,139,250,0.18), transparent 28%),
+        radial-gradient(circle at 80% 8%,  rgba(165,243,252,0.14), transparent 24%),
+        radial-gradient(circle at 50% 90%, rgba(34,197,94,0.10),  transparent 32%),
+        linear-gradient(160deg, #0f172a 0%, #1e293b 40%, #0f172a 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .login-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 8%;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .login-header .logo {
+      font-size: 26px; font-weight: 800; color: #22c55e;
+      letter-spacing: -0.02em; text-decoration: none;
+    }
+    .login-header .back-link {
+      color: rgba(255,255,255,0.6); font-size: 14px; font-weight: 500;
+      text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color .2s;
+    }
+    .login-header .back-link:hover { color: #fff; }
+    .login-header .back-link svg { width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round; }
+
+    .signup-wrapper {
+      flex: 1; width: 100%;
+      display: flex; align-items: center; justify-content: center;
+      padding: 48px 16px;
+    }
+
+    .signup-box {
+      width: min(100%, 480px);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 28px;
+      backdrop-filter: blur(24px);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.04) inset, 0 40px 120px rgba(0,0,0,0.5);
+      padding: 40px 38px 44px;
+      animation: fadeUp .5s ease both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    .panel-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px; border-radius: 999px; font-size: 12px;
+      font-weight: 700; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px;
+      background: rgba(34,197,94,0.14); color: #4ade80; border: 1px solid rgba(34,197,94,0.2);
+    }
+    .panel-badge svg { width:14px;height:14px;fill:currentColor; }
+
+    .signup-box h1 { font-size: 28px; font-weight: 800; letter-spacing: -.02em; color: #f8fafc; margin-bottom: 6px; }
+    .signup-box .subtitle { font-size: 14px; color: rgba(255,255,255,0.45); margin-bottom: 28px; line-height: 1.6; }
+
+    .field-group { margin-bottom: 16px; }
+    .field-group label { display:block;font-size:13px;font-weight:600;color:rgba(255,255,255,0.65);margin-bottom:8px;letter-spacing:.03em; }
+
+    .field-wrap { position: relative; }
+    .field-wrap svg.field-icon { position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;fill:none;stroke:rgba(255,255,255,0.3);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;pointer-events:none; }
+    .field-wrap input {
+      width:100%;padding:14px 16px 14px 46px;
+      background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
+      border-radius:14px;font-size:15px;color:#f8fafc;font-family:inherit;
+      transition:border-color .2s,box-shadow .2s,background .2s;
+    }
+    .field-wrap input::placeholder { color:rgba(255,255,255,0.25); }
+    .field-wrap input:focus {
+      outline:none;background:rgba(255,255,255,0.10);
+      border-color:rgba(255,255,255,0.3);box-shadow:0 0 0 4px rgba(34,197,94,0.12);
+    }
+    .toggle-pw {
+      position:absolute;right:14px;top:50%;transform:translateY(-50%);
+      background:transparent;border:none;cursor:pointer;padding:4px;
+      color:rgba(255,255,255,0.35);transition:color .2s;display:flex;
+    }
+    .toggle-pw:hover { color:rgba(255,255,255,0.7); }
+    .toggle-pw svg { width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8; }
+
+    .form-msg { min-height:20px;margin-top:14px;font-size:13.5px;font-weight:600;border-radius:10px;padding:0;line-height:1.5; }
+    .form-msg.error { color:#f87171;background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);padding:10px 14px; }
+    .form-msg.success { color:#4ade80;background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.2);padding:10px 14px; }
+
+    .submit-btn {
+      width:100%;padding:16px;margin-top:24px;border:none;border-radius:14px;
+      font-size:16px;font-weight:700;font-family:inherit;cursor:pointer;
+      background:linear-gradient(135deg,#16a34a 0%,#22c55e 50%,#15803d 100%);
+      color:#fff;box-shadow:0 12px 40px rgba(34,197,94,0.30);
+      transition:transform .2s,box-shadow .2s;position:relative;overflow:hidden;
+    }
+    .submit-btn::before { content:'';position:absolute;inset:0;background:rgba(255,255,255,0.1);opacity:0;transition:opacity .2s; }
+    .submit-btn:hover::before { opacity:1; }
+    .submit-btn:hover { transform:translateY(-2px);box-shadow:0 18px 50px rgba(34,197,94,0.42); }
+    .submit-btn:active { transform:translateY(0); }
+
+    .btn-spinner { display:none;width:20px;height:20px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;margin:0 auto; }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    .submit-btn.loading .btn-text { display:none; }
+    .submit-btn.loading .btn-spinner { display:inline-block; }
+
+    .panel-footer-link { margin-top:20px;text-align:center;font-size:14px;color:rgba(255,255,255,0.4); }
+    .panel-footer-link a { color:#4ade80;font-weight:600;text-decoration:none;transition:color .2s; }
+    .panel-footer-link a:hover { color:#86efac; }
+
+    /* Two-column grid for name + mobile on wider screens */
+    .field-row { display:grid;grid-template-columns:1fr 1fr;gap:14px; }
+    @media(max-width:480px) { .field-row{grid-template-columns:1fr;} .signup-box{padding:28px 22px 32px;border-radius:20px;} }
+
+    /* Blobs */
+    .blob{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;opacity:.55;}
+    .blob-1{width:340px;height:340px;background:radial-gradient(circle,#22c55e33,transparent 70%);top:-80px;left:-80px;}
+    .blob-2{width:280px;height:280px;background:radial-gradient(circle,#3b82f633,transparent 70%);bottom:20px;right:-60px;}
+    .signup-wrapper{position:relative;z-index:1;}
+    .login-header{position:relative;z-index:1;}
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <header class="login-header">
+    <a class="logo" href="index.html">LearnHub</a>
+    <a class="back-link" href="index.html">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Home
+    </a>
+  </header>
+
+  <div class="signup-wrapper">
+    <div class="signup-box">
+      <div class="panel-badge">
+        <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        New Student
+      </div>
+      <h1>Create your account</h1>
+      <p class="subtitle">Join 15,000+ learners. Access courses, assignments &amp; certificates — free.</p>
+
+      <form id="register-form" novalidate autocomplete="on">
+
+        <div class="field-group">
+          <label for="name">Full Name</label>
+          <div class="field-wrap">
+            <svg class="field-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input id="name" type="text" name="name" placeholder="Your full name" autocomplete="name" required>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="email">Email Address</label>
+          <div class="field-wrap">
+            <svg class="field-icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+            <input id="email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="password">Password</label>
+          <div class="field-wrap">
+            <svg class="field-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input id="password" type="password" name="password" placeholder="Create a strong password" autocomplete="new-password" required>
+            <button type="button" class="toggle-pw" id="pw-toggle" aria-label="Show password">
+              <svg id="eye-show" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg id="eye-hide" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <p class="form-msg" id="register-message" role="alert" aria-live="polite" data-register-message></p>
+
+        <button type="submit" class="submit-btn" id="register-btn">
+          <span class="btn-text">Create Free Account</span>
+          <span class="btn-spinner"></span>
+        </button>
+      </form>
+
+      <div class="panel-footer-link">
+        Already have an account? <a href="login.html">Sign in here →</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="auth.js"></script>
+  <script>
+    // Pre-fill email if redirected from login
+    const urlParams = new URLSearchParams(window.location.search);
+    const emailParam = urlParams.get('email');
+    if (emailParam) {
+      document.getElementById('email').value = emailParam;
+    }
+
+    // Password toggle
+    document.getElementById('pw-toggle').addEventListener('click', function () {
+      const input = document.getElementById('password');
+      const isText = input.type === 'text';
+      input.type = isText ? 'password' : 'text';
+      document.getElementById('eye-show').style.display = isText ? 'block' : 'none';
+      document.getElementById('eye-hide').style.display = isText ? 'none' : 'block';
+    });
+
+    // Register form – override auth.js default with better UX
+    const registerForm   = document.getElementById('register-form');
+    const registerMsg    = document.getElementById('register-message');
+    const registerBtn    = document.getElementById('register-btn');
+    const params         = new URLSearchParams(window.location.search);
+
+    function setMsg(text, type) {
+      registerMsg.textContent = text;
+      registerMsg.className = 'form-msg ' + (text ? type : '');
+    }
+    function setLoading(on) {
+      registerBtn.classList.toggle('loading', on);
+      registerBtn.disabled = on;
+    }
+
+    registerForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      setMsg('', '');
+      const name     = document.getElementById('name').value.trim();
+      const email    = document.getElementById('email').value.trim().toLowerCase();
+      const password = document.getElementById('password').value.trim();
+
+      if (!name || !email || !password) {
+        setMsg('Please fill in all fields.', 'error'); return;
+      }
+
+      setLoading(true);
+      try {
+        const res  = await fetch('/api/register', {
+          method: 'POST', credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password }),
+        });
+        const data = await res.json();
+        if (!res.ok) { setMsg(data.error || 'Registration failed.', 'error'); setLoading(false); return; }
+
+        localStorage.setItem('lmsLoggedIn', 'true');
+        localStorage.setItem('lmsRole', data.role || 'user');
+        setMsg('Account created! Redirecting…', 'success');
+        const next = params.get('next') || (data.role === 'admin' ? 'admin.html' : 'courses.html');
+        setTimeout(() => { window.location.href = next; }, 800);
+      } catch {
+        setMsg('Cannot reach server. Make sure the backend is running.', 'error');
+        setLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>

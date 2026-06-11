@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Web Development Certificate</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="course-detail.css"></head><body><header><a class="logo" href="index.html">LearnHub</a><nav><a href="courses.html">Courses</a><a href="index.html#assignments">Assignments</a><a href="study-materials.html">Study Materials</a><a href="teacher.html">Teachers</a></nav><a class="header-action back-button" href="javascript:history.back()">Back</a><a class="header-action logout-button" data-logout href="#">Logout</a><a class="header-action" href="courses.html">Back</a></header><main><section class="course-page-hero"><h1>Web Development Certificate</h1><p>Complete a certificate path covering HTML, CSS, JavaScript and responsive website projects.</p></section><section class="course-shell"><div class="course-main"><h2 class="section-heading">Course Videos</h2><div class="video-grid"><article class="video-card"><iframe src="https://www.youtube.com/embed/zJSY8tbf_ys" title="Web development full course video" allowfullscreen></iframe><h3>Web Development Full Course</h3><p>Learn the complete frontend path.</p></article><article class="video-card"><iframe src="https://www.youtube.com/embed/nu_pCVPKzTk" title="Full stack web development video" allowfullscreen></iframe><h3>Website Project</h3><p>Build and organize a complete website.</p></article></div><h2 class="section-heading">Syllabus</h2><div class="module-list"><article class="module-card"><h3>Module 1: Frontend</h3><ul><li>HTML</li><li>CSS</li><li>JavaScript</li></ul></article><article class="module-card"><h3>Module 2: Responsive UI</h3><ul><li>Layouts</li><li>Components</li><li>Forms</li></ul></article><article class="module-card"><h3>Module 3: Certificate Project</h3><ul><li>Complete website</li><li>Testing</li><li>Final submission</li></ul></article></div></div><aside class="course-side"><h2>Course Info</h2><div class="info-row"><strong>Level</strong><span>Certificate</span></div><div class="info-row"><strong>Duration</strong><span>10 Weeks</span></div><div class="info-row"><strong>Lessons</strong><span>40</span></div><div class="info-row"><strong>Project</strong><span>Final Website</span></div><h2>What You Learn</h2><ul><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Responsive UI</li></ul>
+            <h2>Fees Structure</h2>
+            <div class="fees-box">
+                <div class="fee-item"><strong>Course Fee</strong><span>$149</span></div>
+                <div class="fee-item"><strong>Installments</strong><span>$55 / month</span></div>
+                <div class="fee-item"><strong>Early Discount</strong><span>10% off for early sign-up</span></div>
+            </div>
+            <p class="fees-note">Secure payments accepted. Contact support for student or group discounts.</p>
+            <a class="btn" href="courses.html">View All Courses</a>
+                    <button class="btn" id="completeBtn" onclick="markCourseComplete('Web Development')">Mark Course Complete</button>
+                    <p class="status-note" id="courseStatus"></p>
+                    <button class="btn" id="downloadBtn" onclick="downloadCertificate('Web Development')">â¬‡ Download Certificate</button></aside></section></main>
+<script>
+function courseStorageKey(courseName) {
+    return 'courseCompleted_' + courseName.replace(/\s+/g, '_');
+}
+
+function isCourseComplete(courseName) {
+    return localStorage.getItem(courseStorageKey(courseName)) === 'true';
+}
+
+function markCourseComplete(courseName) {
+    localStorage.setItem(courseStorageKey(courseName), 'true');
+    updateCourseStatus(courseName);
+    alert('Course marked complete. Certificate download is now enabled.');
+}
+
+function updateCourseStatus(courseName) {
+    var complete = isCourseComplete(courseName);
+    var downloadBtn = document.getElementById('downloadBtn');
+    var status = document.getElementById('courseStatus');
+    var completeBtn = document.getElementById('completeBtn');
+
+    if (downloadBtn) downloadBtn.disabled = !complete;
+    if (status) status.textContent = complete
+        ? 'Course complete â€” certificate download enabled.'
+        : 'Complete the course before downloading the certificate.';
+    if (completeBtn) {
+        completeBtn.disabled = complete;
+        completeBtn.textContent = complete ? 'Course Completed' : 'Mark Course Complete';
+    }
+}
+
+function downloadCertificate(courseName) {
+    if (!isCourseComplete(courseName)) {
+        alert('Complete the course first to download the certificate.');
+        return;
+    }
+
+    var studentName = prompt("Enter your name to generate your certificate");
+    if (!studentName) {
+        alert("Please enter your name to download the certificate.");
+        return;
+    }
+    var certificateText =
+        "CERTIFICATE OF COMPLETION\n\n" +
+        "This is to certify that\n\n" +
+        studentName +
+        "\n\nhas completed the course\n\n" +
+        courseName +
+        "\n\nIssued by LMS Platform\n\nCongratulations!\n";
+    var blob = new Blob([certificateText], { type: "text/plain" });
+    var link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = courseName.replace(/\s+/g, "_") + "_Certificate.txt";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+    updateCourseStatus('Web Development');
+});
+</script>
+<script src="auth.js" data-protected="true"></script></body></html>
+
+

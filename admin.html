@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - LearnHub</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <a class="logo" href="index.html">LearnHub</a>
+
+    <nav aria-label="Main navigation">
+        <div class="course-menu">
+            <a href="courses.html">Courses</a>
+
+            <div class="dropdown stable">
+                <div>
+                    <h3>Programming</h3>
+                    <a href="html.html">HTML</a>
+                    <a href="css.html">CSS</a>
+                    <a href="javascript.html">JavaScript</a>
+                    <a href="react.html">React JS</a>
+                    <a href="node.html">Node JS</a>
+                </div>
+
+                <div>
+                    <h3>Data Science</h3>
+                    <a href="python.html">Python</a>
+                    <a href="ai.html">AI</a>
+                    <a href="machine-learning.html">Machine Learning</a>
+                    <a href="sql.html">SQL</a>
+                    <a href="power-bi.html">Power BI</a>
+                </div>
+
+                <div>
+                    <h3>Business</h3>
+                    <a href="marketing.html">Marketing</a>
+                    <a href="finance.html">Finance</a>
+                    <a href="management.html">Management</a>
+                    <a href="leadership.html">Leadership</a>
+                </div>
+
+                <div>
+                    <h3>Certificates</h3>
+                    <a href="web-development.html">Web Development</a>
+                    <a href="cyber-security.html">Cyber Security</a>
+                    <a href="cloud-computing.html">Cloud Computing</a>
+                    <a href="data-analytics.html">Data Analytics</a>
+                </div>
+            </div>
+        </div>
+
+        <a href="assignments.html">Assignments</a>
+        <a href="study-materials.html">Study Materials</a>
+        <a href="teacher.html">Teachers</a>
+        <a class="admin-link" href="admin.html">Admin</a>
+    </nav><a class="header-action back-button" href="javascript:history.back()">Back</a><a class="header-action logout-button" data-logout href="#">Logout</a>
+
+    <a class="header-action login-nav-btn" href="login.html" id="header-login-btn">Login</a>
+    <a class="header-action" href="index.html">Home</a>
+</header>
+
+<main>
+    <section class="hero admin-hero">
+        <div class="hero-left">
+            <p class="eyebrow">Admin Dashboard</p>
+
+            <h1>Create a New Course</h1>
+
+            <p>
+                Use this form to build course metadata, assign a teacher, and publish the class on your LMS front-end.
+            </p>
+
+            <a class="btn" href="courses.html">View Courses</a>
+        </div>
+
+        <div class="hero-right">
+            <form class="admin-card">
+                <h2>Create Course</h2>
+
+                <label for="course-title">Course Title</label>
+                <input id="course-title" type="text" placeholder="Enter course title" required>
+
+                <label for="course-category">Category</label>
+                <input id="course-category" type="text" placeholder="e.g. Data Science, Programming" required>
+
+                <label for="course-teacher">Teacher Name</label>
+                <input id="course-teacher" type="text" placeholder="Assign a teacher" required>
+
+                <label for="course-duration">Duration</label>
+                <input id="course-duration" type="text" placeholder="e.g. 8 weeks" required>
+
+                <label for="course-start">Start Date</label>
+                <input id="course-start" type="date" required>
+
+                <fieldset class="certificate-settings">
+                    <legend>Certificate Option</legend>
+
+                    <label class="checkbox-row" for="certificate-enabled">
+                        <input id="certificate-enabled" type="checkbox">
+                        Give certificate after course completion
+                    </label>
+
+                    <label for="certificate-requirement">Completion Requirement</label>
+                    <select id="certificate-requirement">
+                        <option>100% lessons completed + final assessment passed</option>
+                        <option>80% lessons completed + all assignments submitted</option>
+                        <option>Manual admin approval</option>
+                    </select>
+
+                    <p class="helper-text">
+                        When enabled, students can download a certificate after they finish the course requirements.
+                    </p>
+                </fieldset>
+
+                <label for="course-description">Description</label>
+                <textarea id="course-description" rows="5" placeholder="Write a short course description"></textarea>
+
+                <button type="submit">Save Course</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2>Quick Admin Actions</h2>
+
+        <div class="cards">
+            <article class="card">
+                <h3>Manage Courses</h3>
+                <p>Review and update course content from the course catalog.</p>
+                <a class="btn card-link" href="courses.html">Edit Courses</a>
+            </article>
+
+            <article class="card">
+                <h3>Assignments</h3>
+                <p>Track assignment submissions and teacher reviews.</p>
+                <a class="btn card-link" href="assignments.html">Open Assignments</a>
+            </article>
+
+            <article class="card">
+                <h3>Study Materials</h3>
+                <p>Check notes, downloads and published resources.</p>
+                <a class="btn card-link" href="study-materials.html">View Materials</a>
+            </article>
+
+            <article class="card">
+                <h3>Certificates</h3>
+                <p>Enable certificates for completed courses and review student eligibility.</p>
+                <a class="btn card-link" href="certificates.html">Manage Certificates</a>
+            </article>
+
+            <article class="card">
+                <h3>Teacher Panel</h3>
+                <p>Coordinate teachers, monitor progress, and publish updates.</p>
+                <a class="btn card-link" href="teacher.html">Teacher Panel</a>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer>
+<h2>Tired of Paying for Modules You Don't Use?</h2>
+<p>Switch to an LMS that's faster, smarter, and built for impact.</p>
+<button class="footer-demo-btn">Schedule My Demo</button>
+</footer>
+
+<footer class="bottom">
+<p>© 2026 LearnHub. All rights reserved.</p>
+<div class="social-icons">
+<a href="https://linkedin.com" title="LinkedIn" target="_blank">in</a>
+<a href="https://youtube.com" title="YouTube" target="_blank">▶</a>
+<a href="https://facebook.com" title="Facebook" target="_blank">f</a>
+</div>
+</footer>
+
+<script src="auth.js" data-protected="true"></script>
+<script src="admin.js"></script>
+</body>
+</html>
+

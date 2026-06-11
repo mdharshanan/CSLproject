@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - LearnHub LMS</title>
+  <meta name="description" content="Sign in to LearnHub LMS as a Student or Admin to access your personalized dashboard.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Page-level overrides ── */
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(167,139,250,0.18), transparent 28%),
+        radial-gradient(circle at 80% 8%,  rgba(165,243,252,0.14), transparent 24%),
+        radial-gradient(circle at 50% 90%, rgba(34,197,94,0.10),  transparent 32%),
+        linear-gradient(160deg, #0f172a 0%, #1e293b 40%, #0f172a 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    /* ── Minimal header ── */
+    .login-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 8%;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .login-header .logo {
+      font-size: 26px;
+      font-weight: 800;
+      color: #22c55e;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .login-header .back-link {
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .2s;
+    }
+    .login-header .back-link:hover { color: #fff; }
+    .login-header .back-link svg {
+      width: 16px; height: 16px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* ── Centered login box ── */
+    .login-page-wrapper {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 16px;
+    }
+
+    .login-box {
+      width: min(100%, 480px);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 28px;
+      backdrop-filter: blur(24px);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.04) inset,
+        0 40px 120px rgba(0,0,0,0.5),
+        0 0 80px rgba(34,197,94,0.06);
+      overflow: hidden;
+      animation: fadeSlideUp .5s ease both;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Role tabs ── */
+    .role-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .role-tab {
+      padding: 20px 0;
+      text-align: center;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: .03em;
+      color: rgba(255,255,255,0.45);
+      border: none;
+      background: transparent;
+      transition: color .2s, background .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-bottom: 3px solid transparent;
+      position: relative;
+    }
+
+    .role-tab svg {
+      width: 20px; height: 20px;
+      fill: currentColor; opacity: .7;
+    }
+
+    .role-tab:hover {
+      color: rgba(255,255,255,0.75);
+      background: rgba(255,255,255,0.04);
+    }
+
+    .role-tab.active {
+      color: #fff;
+      border-bottom-color: transparent;
+    }
+
+    .role-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 20%; right: 20%;
+      height: 3px;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #22c55e, #3b82f6);
+    }
+
+    /* student active accent */
+    .role-tab[data-role="student"].active { color: #4ade80; }
+    /* admin active accent */
+    .role-tab[data-role="admin"].active { color: #60a5fa; }
+    .role-tab[data-role="admin"].active::after {
+      background: linear-gradient(90deg, #3b82f6, #a855f7);
+    }
+
+    /* ── Form panels ── */
+    .login-panel {
+      display: none;
+      padding: 36px 38px 40px;
+    }
+    .login-panel.active { display: block; }
+
+    /* Brand badge */
+    .panel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .panel-badge.student {
+      background: rgba(34,197,94,0.14);
+      color: #4ade80;
+      border: 1px solid rgba(34,197,94,0.2);
+    }
+    .panel-badge.admin {
+      background: rgba(59,130,246,0.14);
+      color: #60a5fa;
+      border: 1px solid rgba(59,130,246,0.2);
+    }
+    .panel-badge svg { width: 14px; height: 14px; fill: currentColor; }
+
+    .login-panel h2 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: #f8fafc;
+      margin-bottom: 6px;
+    }
+
+    .login-panel .subtitle {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    /* ── Form fields ── */
+    .field-group {
+      margin-bottom: 16px;
+    }
+
+    .field-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 8px;
+      letter-spacing: .03em;
+    }
+
+    .field-wrap {
+      position: relative;
+    }
+
+    .field-wrap svg {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px; height: 18px;
+      fill: none;
+      stroke: rgba(255,255,255,0.3);
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      pointer-events: none;
+    }
+
+    .field-wrap input {
+      width: 100%;
+      padding: 14px 16px 14px 46px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      font-size: 15px;
+      color: #f8fafc;
+      font-family: inherit;
+      transition: border-color .2s, box-shadow .2s, background .2s;
+    }
+
+    .field-wrap input::placeholder { color: rgba(255,255,255,0.25); }
+
+    .field-wrap input:focus {
+      outline: none;
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.3);
+      box-shadow: 0 0 0 4px rgba(34,197,94,0.12);
+    }
+
+    #admin-panel .field-wrap input:focus {
+      box-shadow: 0 0 0 4px rgba(59,130,246,0.14);
+    }
+
+    /* password toggle */
+    .toggle-pw {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: rgba(255,255,255,0.35);
+      transition: color .2s;
+      display: flex;
+    }
+    .toggle-pw:hover { color: rgba(255,255,255,0.7); }
+    .toggle-pw svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.8; }
+
+    /* ── OTP section (hidden by default) ── */
+    .otp-section {
+      display: none;
+      margin-top: 4px;
+      padding: 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 14px;
+      animation: fadeSlideUp .3s ease both;
+    }
+    .otp-section.visible { display: block; }
+    .otp-section .otp-title {
+      font-size: 13px;
+      color: #4ade80;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .otp-section .otp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* ── Submit button ── */
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      margin-top: 24px;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s, opacity .2s;
+      position: relative;
+      overflow: hidden;
+      letter-spacing: .02em;
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.1);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .submit-btn:hover::before { opacity: 1; }
+    .submit-btn:hover { transform: translateY(-2px); }
+    .submit-btn:active { transform: translateY(0); }
+
+    .submit-btn.student-btn {
+      background: linear-gradient(135deg, #16a34a 0%, #22c55e 50%, #15803d 100%);
+      color: #fff;
+      box-shadow: 0 12px 40px rgba(34,197,94,0.30);
+    }
+    .submit-btn.student-btn:hover {
+      box-shadow: 0 18px 50px rgba(34,197,94,0.42);
+    }
+
+    .submit-btn.admin-btn {
+      background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 50%, #1e40af 100%);
+      color: #fff;
+      box-shadow: 0 12px 40px rgba(59,130,246,0.30);
+    }
+    .submit-btn.admin-btn:hover {
+      box-shadow: 0 18px 50px rgba(59,130,246,0.42);
+    }
+
+    /* loading spinner inside button */
+    .btn-spinner {
+      display: none;
+      width: 20px; height: 20px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .submit-btn.loading .btn-text { display: none; }
+    .submit-btn.loading .btn-spinner { display: inline-block; }
+
+    /* ── Form messages ── */
+    .form-msg {
+      min-height: 20px;
+      margin-top: 14px;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: 10px;
+      padding: 0;
+      line-height: 1.5;
+    }
+    .form-msg.error {
+      color: #f87171;
+      background: rgba(248,113,113,0.08);
+      border: 1px solid rgba(248,113,113,0.2);
+      padding: 10px 14px;
+    }
+    .form-msg.success {
+      color: #4ade80;
+      background: rgba(74,222,128,0.08);
+      border: 1px solid rgba(74,222,128,0.2);
+      padding: 10px 14px;
+    }
+
+    /* ── Footer link ── */
+    .panel-footer-link {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+    }
+    .panel-footer-link a {
+      color: #4ade80;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .panel-footer-link a:hover { color: #86efac; }
+
+    /* ── Admin credentials hint ── */
+    .admin-hint {
+      margin-top: 18px;
+      padding: 12px 16px;
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.18);
+      border-radius: 12px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+    .admin-hint strong { color: #93c5fd; }
+
+    /* ── Decorative blobs ── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: .55;
+    }
+    .blob-1 { width: 340px; height: 340px; background: radial-gradient(circle, #22c55e33, transparent 70%); top: -80px; left: -80px; }
+    .blob-2 { width: 280px; height: 280px; background: radial-gradient(circle, #3b82f633, transparent 70%); bottom: 20px; right: -60px; }
+    .blob-3 { width: 200px; height: 200px; background: radial-gradient(circle, #a855f722, transparent 70%); top: 40%; left: 50%; }
+
+    .login-page-wrapper { position: relative; z-index: 1; }
+    .login-header { position: relative; z-index: 1; }
+
+    /* ── Divider ── */
+    .or-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0 0;
+      color: rgba(255,255,255,0.2);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+    }
+    .or-divider::before, .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* Responsive */
+    @media (max-width: 520px) {
+      .login-panel { padding: 28px 22px 32px; }
+      .login-box { border-radius: 20px; }
+      .otp-section .otp-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Decorative blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Minimal header -->
+  <header class="login-header">
+    <a class="logo" href="index.html">LearnHub</a>
+    <a class="back-link" href="index.html">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Home
+    </a>
+  </header>
+
+  <div class="login-page-wrapper">
+    <div class="login-box">
+
+      <!-- Role Tabs -->
+      <div class="role-tabs" role="tablist">
+        <button class="role-tab active" id="tab-student" data-role="student" role="tab" aria-selected="true" aria-controls="student-panel">
+          <!-- Student icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+            <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+          </svg>
+          Student Login
+        </button>
+        <button class="role-tab" id="tab-admin" data-role="admin" role="tab" aria-selected="false" aria-controls="admin-panel">
+          <!-- Shield/Admin icon -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"/>
+          </svg>
+          Admin Login
+        </button>
+      </div>
+
+      <!-- ─── Student Login Panel ─── -->
+      <div class="login-panel active" id="student-panel" role="tabpanel" aria-labelledby="tab-student">
+        <div class="panel-badge student">
+          <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+          Student Portal
+        </div>
+        <h2>Welcome back!</h2>
+        <p class="subtitle">Sign in to access your courses, assignments &amp; certificates.</p>
+
+        <form id="student-login-form" novalidate autocomplete="on">
+
+          <div class="field-group">
+            <label for="s-email">Email Address</label>
+            <div class="field-wrap">
+              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+              <input id="s-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="s-password">Password</label>
+            <div class="field-wrap">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <input id="s-password" type="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+              <button type="button" class="toggle-pw" id="s-pw-toggle" aria-label="Show password">
+                <svg id="s-eye-show" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg id="s-eye-hide" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <p class="form-msg" id="s-form-msg" role="alert" aria-live="polite"></p>
+
+          <button type="submit" class="submit-btn student-btn" id="s-submit-btn">
+            <span class="btn-text">Sign In</span>
+            <span class="btn-spinner"></span>
+          </button>
+        </form>
+
+        <div class="panel-footer-link">
+          Don't have an account? <a href="signup.html">Register free</a>
+        </div>
+      </div>
+
+      <!-- ─── Admin Login Panel ─── -->
+      <div class="login-panel" id="admin-panel" role="tabpanel" aria-labelledby="tab-admin" hidden>
+        <div class="panel-badge admin">
+          <svg viewBox="0 0 24 24"><path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3z"/></svg>
+          Admin Access
+        </div>
+        <h2>Admin Sign In</h2>
+        <p class="subtitle">Restricted access — only authorised administrators may proceed.</p>
+
+        <form id="admin-login-form" novalidate autocomplete="on">
+
+          <div class="field-group">
+            <label for="a-email">Admin Email</label>
+            <div class="field-wrap">
+              <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+              <input id="a-email" type="email" name="email" placeholder="admin@lms.edu" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="a-password">Admin Password</label>
+            <div class="field-wrap">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <input id="a-password" type="password" name="password" placeholder="Enter admin password" autocomplete="current-password" required>
+              <button type="button" class="toggle-pw" id="a-pw-toggle" aria-label="Show password">
+                <svg id="a-eye-show" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                <svg id="a-eye-hide" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <p class="form-msg" id="a-form-msg" role="alert" aria-live="polite"></p>
+
+          <button type="submit" class="submit-btn admin-btn" id="a-submit-btn">
+            <span class="btn-text">Sign In</span>
+            <span class="btn-spinner"></span>
+          </button>
+        </form>
+
+        <div class="admin-hint">
+          <strong>Default credentials:</strong><br>
+          Email: <strong>admin@lms.edu</strong> &nbsp;|&nbsp; Password: <strong>Admin@123</strong>
+        </div>
+
+        <div class="panel-footer-link" style="margin-top:14px;">
+          Not an admin? <a href="login.html" onclick="switchTab('student')" style="color:#60a5fa;">Student login →</a>
+        </div>
+      </div>
+
+    </div><!-- /.login-box -->
+  </div><!-- /.login-page-wrapper -->
+
+  <script src="auth.js"></script>
+  <script>
+    // ── Tab switching ──
+    function switchTab(role) {
+      const tabs   = document.querySelectorAll('.role-tab');
+      const panels = document.querySelectorAll('.login-panel');
+
+      tabs.forEach(t => {
+        const isActive = t.dataset.role === role;
+        t.classList.toggle('active', isActive);
+        t.setAttribute('aria-selected', isActive);
+      });
+      panels.forEach(p => {
+        const isActive = p.id === role + '-panel';
+        p.classList.toggle('active', isActive);
+        p.hidden = !isActive;
+      });
+    }
+
+    document.querySelectorAll('.role-tab').forEach(tab => {
+      tab.addEventListener('click', () => switchTab(tab.dataset.role));
+    });
+
+    // Check URL param for auto-switching to admin tab
+    if (new URLSearchParams(window.location.search).get('role') === 'admin') {
+      switchTab('admin');
+    }
+
+    // ── Password visibility toggles ──
+    function setupToggle(toggleId, inputId, showId, hideId) {
+      document.getElementById(toggleId).addEventListener('click', function () {
+        const input = document.getElementById(inputId);
+        const show  = document.getElementById(showId);
+        const hide  = document.getElementById(hideId);
+        const isText = input.type === 'text';
+        input.type = isText ? 'password' : 'text';
+        show.style.display = isText ? 'block' : 'none';
+        hide.style.display = isText ? 'none'  : 'block';
+        this.setAttribute('aria-label', isText ? 'Show password' : 'Hide password');
+      });
+    }
+    setupToggle('s-pw-toggle', 's-password', 's-eye-show', 's-eye-hide');
+    setupToggle('a-pw-toggle', 'a-password', 'a-eye-show', 'a-eye-hide');
+
+    // ── Shared login handler ──
+    function createLoginHandler({ formId, emailId, passwordId, msgId, submitBtnId, isStudent }) {
+      const form      = document.getElementById(formId);
+      const msgEl     = document.getElementById(msgId);
+      const submitBtn = document.getElementById(submitBtnId);
+      const params    = new URLSearchParams(window.location.search);
+
+      function setMsg(text, type) {
+        msgEl.textContent = text;
+        msgEl.className = 'form-msg ' + (text ? type : '');
+      }
+
+      function setLoading(on) {
+        submitBtn.classList.toggle('loading', on);
+        submitBtn.disabled = on;
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        setMsg('', '');
+
+        const emailVal    = document.getElementById(emailId).value.trim().toLowerCase();
+        const passwordVal = document.getElementById(passwordId).value.trim();
+
+        if (!emailVal || !passwordVal) {
+          setMsg('Please enter email and password.', 'error');
+          return;
+        }
+
+        setLoading(true);
+        try {
+          const res = await fetch('/api/login', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: emailVal, password: passwordVal }),
+          });
+          const data = await res.json();
+          if (!res.ok) {
+            // If user not found and this is student login, redirect to signup
+            if (isStudent && data.error && data.error.includes('Invalid email')) {
+              setMsg('Account not found. Redirecting to registration...', 'success');
+              setTimeout(() => {
+                window.location.href = 'signup.html?email=' + encodeURIComponent(emailVal);
+              }, 1000);
+              return;
+            }
+            setMsg(data.error || 'Login failed. Check your credentials.', 'error');
+            setLoading(false);
+            return;
+          }
+
+          // Persist login role
+          localStorage.setItem('lmsLoggedIn', 'true');
+          localStorage.setItem('lmsRole', data.role || 'user');
+
+          const next = params.get('next') || (data.role === 'admin' ? 'admin.html' : 'courses.html');
+          window.location.href = next;
+        } catch {
+          setMsg('Cannot reach server. Make sure the backend is running.', 'error');
+          setLoading(false);
+        }
+      });
+    }
+
+    // Wire up student form
+    createLoginHandler({
+      formId: 'student-login-form',
+      emailId: 's-email',
+      passwordId: 's-password',
+      msgId: 's-form-msg',
+      submitBtnId: 's-submit-btn',
+      isStudent: true,
+    });
+
+    // Wire up admin form
+    createLoginHandler({
+      formId: 'admin-login-form',
+      emailId: 'a-email',
+      passwordId: 'a-password',
+      msgId: 'a-form-msg',
+      submitBtnId: 'a-submit-btn',
+      isStudent: false,
+    });
+  </script>
+</body>
+</html>

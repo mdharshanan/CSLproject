@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Certificate Courses</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f5f7fb;
+}
+
+header{
+background:#071430;
+padding:20px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+color:white;
+text-decoration:none;
+font-size:28px;
+font-weight:bold;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:20px;
+}
+
+.hero{
+padding:60px 8%;
+text-align:center;
+}
+
+.hero h1{
+font-size:50px;
+margin-bottom:15px;
+}
+
+.hero p{
+color:#64748b;
+max-width:800px;
+margin:auto;
+}
+
+.course-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:25px;
+padding:40px 8%;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,.1);
+}
+
+.card h2{
+margin-bottom:10px;
+}
+
+.card p{
+color:#64748b;
+margin-bottom:15px;
+}
+
+.badge{
+display:inline-block;
+background:#e0f2fe;
+color:#2563eb;
+padding:6px 12px;
+border-radius:20px;
+margin:5px;
+font-size:13px;
+}
+
+.download-btn{
+margin-top:15px;
+background:#16a34a;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.download-btn:hover{
+background:#15803d;
+}
+
+.download-btn:disabled{
+opacity:.55;
+cursor:not-allowed;
+}
+
+.card .status-note{
+margin-top:12px;
+color:#475569;
+font-size:14px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<a href="#" class="logo">LMS</a>
+
+<nav>
+<a href="#">Courses</a>
+<a href="#">Assignments</a>
+<a href="#">Study Materials</a>
+<a href="#">Teachers</a>
+</nav><a class="header-action back-button" href="javascript:history.back()">Back</a><a class="header-action logout-button" data-logout href="#">Logout</a>
+</header>
+
+<section class="hero">
+<h1>Certificate Courses</h1>
+
+<p>
+Complete your course, pass assessments,
+and download your certificate instantly.
+</p>
+</section>
+
+<section class="course-grid">
+
+<div class="card">
+<h2>Web Development</h2>
+
+<span class="badge">10 Weeks</span>
+<span class="badge">Certificate</span>
+
+<p>
+Learn HTML, CSS, JavaScript and Responsive Design.
+</p>
+
+<button class="download-btn" data-course="Web Development"
+onclick="downloadCertificate('Web Development')">
+â¬‡ Download Certificate
+</button>
+<p class="status-note"></p>
+
+</div>
+
+<div class="card">
+<h2>Data Analytics</h2>
+
+<span class="badge">8 Weeks</span>
+<span class="badge">Certificate</span>
+
+<p>
+Learn SQL, Dashboards, Reports and Data Visualization.
+</p>
+
+<button class="download-btn" data-course="Data Analytics"
+onclick="downloadCertificate('Data Analytics')">
+â¬‡ Download Certificate
+</button>
+<p class="status-note"></p>
+
+</div>
+
+<div class="card">
+<h2>Cyber Security</h2>
+
+<span class="badge">8 Weeks</span>
+<span class="badge">Certificate</span>
+
+<p>
+Network Security, Password Protection and Threat Analysis.
+</p>
+
+<button class="download-btn" data-course="Cyber Security"
+onclick="downloadCertificate('Cyber Security')">
+â¬‡ Download Certificate
+</button>
+<p class="status-note"></p>
+
+</div>
+
+<div class="card">
+<h2>Cloud Computing</h2>
+
+<span class="badge">8 Weeks</span>
+<span class="badge">Certificate</span>
+
+<p>
+Cloud Platforms, Storage and Deployment Concepts.
+</p>
+
+<button class="download-btn" data-course="Cloud Computing"
+onclick="downloadCertificate('Cloud Computing')">
+â¬‡ Download Certificate
+</button>
+<p class="status-note"></p>
+
+</div>
+
+</section>
+
+<script>
+
+function courseStorageKey(courseName) {
+    return 'courseCompleted_' + courseName.replace(/\s+/g, '_');
+}
+
+function isCourseComplete(courseName) {
+    return localStorage.getItem(courseStorageKey(courseName)) === 'true';
+}
+
+function downloadCertificate(courseName) {
+    if (!isCourseComplete(courseName)) {
+        alert('Complete the course first to download the certificate.');
+        return;
+    }
+
+    let studentName = prompt("Enter Student Name");
+
+    if (!studentName) {
+        alert("Please enter your name");
+        return;
+    }
+
+    const certificateText =
+`CERTIFICATE OF COMPLETION
+
+This is to certify that
+
+${studentName}
+
+has successfully completed
+
+${courseName}
+
+Issued By LMS Platform
+
+Congratulations!
+`;
+
+    const blob = new Blob([certificateText], { type: "text/plain" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = courseName.replace(/\s/g, '_') + "_Certificate.txt";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function updateCertificateButtons() {
+    document.querySelectorAll('.download-btn').forEach(function(button) {
+        const courseName = button.dataset.course;
+        const status = button.parentElement.querySelector('.status-note');
+        const complete = courseName && isCourseComplete(courseName);
+
+        button.disabled = !complete;
+        if (complete) {
+            button.textContent = 'â¬‡ Download Certificate';
+            if (status) status.textContent = 'Course complete â€” ready to download.';
+        } else {
+            button.textContent = 'Course not complete';
+            if (status) status.textContent = 'Finish the course to enable download.';
+        }
+    });
+}
+
+window.addEventListener('DOMContentLoaded', updateCertificateButtons);
+
+</script>
+
+</body>
+</html>

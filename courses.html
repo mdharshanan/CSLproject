@@ -1,0 +1,775 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Courses - LearnHub</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.courses-hero{
+padding:72px 8% 40px;
+text-align:center;
+}
+
+.courses-hero h1{
+font-size:clamp(36px,6vw,58px);
+line-height:1.1;
+margin-bottom:18px;
+}
+
+.courses-hero span{
+background:linear-gradient(90deg,#16a34a,#2563eb);
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+}
+
+.courses-hero p{
+font-size:18px;
+line-height:1.7;
+color:#475569;
+max-width:760px;
+margin:0 auto;
+}
+
+.course-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:22px;
+padding:22px 8% 72px;
+}
+
+.course-card{
+background:white;
+padding:26px;
+border-radius:8px;
+box-shadow:0 8px 24px rgba(15,23,42,.08);
+display:flex;
+flex-direction:column;
+gap:14px;
+}
+
+.course-card h2{
+font-size:22px;
+}
+
+.course-card p{
+color:#64748b;
+line-height:1.6;
+}
+
+.course-meta{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+}
+
+.course-meta span{
+background:#eef6ff;
+color:#2563eb;
+border-radius:999px;
+font-size:13px;
+font-weight:700;
+padding:6px 10px;
+}
+
+.course-card ul{
+padding-left:18px;
+color:#475569;
+line-height:1.7;
+}
+
+.course-card .btn{
+align-self:flex-start;
+margin-top:auto;
+font-size:15px;
+padding:11px 18px;
+}
+
+.assessment-section{
+background:#ffffff;
+border-radius:16px;
+box-shadow:0 12px 30px rgba(15,23,42,.08);
+padding:36px 8%;
+margin:40px 0;
+}
+
+.assessment-section h2,
+.assessment-section h3{
+color:#0f172a;
+}
+
+.assessment-section p{
+color:#475569;
+line-height:1.7;
+margin-bottom:18px;
+}
+
+.assessment-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:24px;
+}
+
+.module-list{
+list-style:none;
+padding:0;
+margin:0;
+display:grid;
+gap:12px;
+}
+
+.module-list label{
+display:flex;
+align-items:center;
+gap:12px;
+background:#f8fafc;
+padding:14px 16px;
+border-radius:12px;
+color:#334155;
+font-weight:600;
+}
+
+.assessment-right{
+background:#f8fbff;
+border:1px solid #dbeafe;
+border-radius:16px;
+padding:24px;
+}
+
+.question-card{
+display:grid;
+gap:20px;
+}
+
+.question-progress{
+font-size:0.95rem;
+font-weight:700;
+color:#2563eb;
+}
+
+.question-text{
+font-size:20px;
+line-height:1.5;
+}
+
+.answer-options{
+display:grid;
+gap:14px;
+}
+
+.answer-label{
+display:flex;
+align-items:center;
+gap:12px;
+padding:14px 16px;
+border:1px solid #d1d5db;
+border-radius:12px;
+background:white;
+color:#334155;
+cursor:pointer;
+}
+
+.answer-label input{
+accent-color:#2563eb;
+}
+
+.certificate-banner{
+margin-top:28px;
+padding:24px;
+background:#eff6ff;
+border:1px solid #bfdbfe;
+border-radius:16px;
+text-align:center;
+}
+
+.certificate-banner h3{
+margin-bottom:10px;
+font-size:24px;
+}
+
+.certificate-banner p{
+max-width:720px;
+margin:0 auto 22px;
+}
+
+.hidden{
+display:none;
+}
+
+.fees-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:22px;
+padding:22px 8% 0;
+}
+
+.fee-card{
+background:white;
+border-radius:8px;
+box-shadow:0 8px 24px rgba(15,23,42,.08);
+padding:24px;
+}
+
+.fee-card h3{
+font-size:20px;
+margin-bottom:10px;
+}
+
+.fee-card p{
+color:#475569;
+line-height:1.7;
+margin-bottom:14px;
+}
+
+.fee-card ul{
+padding-left:18px;
+color:#475569;
+line-height:1.7;
+}
+
+.fee-card ul li{
+margin-bottom:8px;
+}
+
+.category-tabs{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:12px;
+padding:12px 8% 8px;
+}
+
+.category-tabs a{
+background:white;
+border:1px solid #dbe4f0;
+border-radius:8px;
+color:#334155;
+font-weight:700;
+padding:11px 16px;
+}
+
+.category-tabs a:hover{
+border-color:#2563eb;
+color:#2563eb;
+}
+
+.section-title{
+padding:38px 8% 0;
+}
+
+.section-title h2{
+font-size:clamp(28px,4vw,38px);
+margin-bottom:8px;
+}
+
+.section-title p{
+color:#64748b;
+line-height:1.6;
+}
+
+.notes-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+padding:22px 8% 72px;
+}
+
+.note-card{
+background:white;
+border-radius:8px;
+box-shadow:0 8px 24px rgba(15,23,42,.08);
+padding:22px;
+}
+
+.note-card h3{
+font-size:20px;
+margin-bottom:10px;
+}
+
+.note-card p{
+color:#64748b;
+line-height:1.6;
+margin-bottom:18px;
+}
+
+.note-card .btn{
+font-size:15px;
+padding:11px 18px;
+}
+
+@media (max-width:1000px){
+.course-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.fees-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.notes-grid{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+@media (max-width:640px){
+.courses-hero,
+.course-grid,
+.fees-grid{
+padding-left:5%;
+padding-right:5%;
+}
+
+.fees-grid{
+grid-template-columns:1fr;
+}
+
+.course-grid{
+grid-template-columns:1fr;
+}
+
+.notes-grid{
+grid-template-columns:1fr;
+padding-left:5%;
+padding-right:5%;
+}
+}
+</style>
+</head>
+<body>
+
+<header>
+    <a class="logo" href="index.html">LMS</a>
+
+    <nav aria-label="Main navigation">
+        <div class="course-menu">
+            <a href="courses.html">Courses</a>
+
+            <div class="dropdown">
+                <div>
+                    <h3>Programming</h3>
+                    <a href="html.html">HTML</a>
+                    <a href="css.html">CSS</a>
+                    <a href="javascript.html">JavaScript</a>
+                    <a href="react.html">React JS</a>
+                    <a href="node.html">Node JS</a>
+                </div>
+
+                <div>
+                    <h3>Data Science</h3>
+                    <a href="python.html">Python</a>
+                    <a href="machine-learning.html">Machine Learning</a>
+                    <a href="ai.html">AI</a>
+                    <a href="power-bi.html">Power BI</a>
+                    <a href="sql.html">SQL</a>
+                </div>
+
+                <div>
+                    <h3>Business</h3>
+                    <a href="marketing.html">Marketing</a>
+                    <a href="finance.html">Finance</a>
+                    <a href="management.html">Management</a>
+                    <a href="leadership.html">Leadership</a>
+                </div>
+
+                <div>
+                    <h3>Certificates</h3>
+                    <a href="web-development.html">Web Development</a>
+                    <a href="data-analytics.html">Data Analytics</a>
+                    <a href="cyber-security.html">Cyber Security</a>
+                    <a href="cloud-computing.html">Cloud Computing</a>
+                </div>
+            </div>
+        </div>
+
+        <a href="index.html#assignments">Assignments</a>
+        <a href="study-materials.html">Study Materials</a>
+        <a href="teacher.html">Teachers</a>
+        <a class="admin-link" href="admin.html">Admin</a>
+    </nav><a class="header-action back-button" href="javascript:history.back()">Back</a><a class="header-action logout-button" data-logout href="#">Logout</a>
+
+    <a class="header-action" href="index.html">Home</a>
+</header>
+
+<main>
+    <section class="courses-hero">
+        <h1>All Course <span>Details</span></h1>
+        <p>
+            Browse programming, data science, business and certificate courses.
+            Each course includes clear modules, duration, level and learning
+            outcomes for students.
+        </p>
+    </section>
+
+    <div class="category-tabs" aria-label="Course categories">
+        <a href="programming.html">Programming</a>
+        <a href="data-science.html">Data Science</a>
+        <a href="business.html">Business</a>
+        <a href="certificates.html">Certificates</a>
+    </div>
+
+    <section class="section-title">
+        <h2>Featured Courses</h2>
+        <p>Select a course and open the full category detail page.</p>
+    </section>
+
+    <section class="course-grid" aria-label="Course details">
+        <article class="course-card">
+            <h2>HTML & CSS</h2>
+            <div class="course-meta">
+                <span>Beginner</span>
+                <span>6 Weeks</span>
+                <span>24 Lessons</span>
+            </div>
+            <p>Build responsive web pages using semantic HTML, modern CSS, forms and layouts.</p>
+            <ul>
+                <li>HTML tags and page structure</li>
+                <li>Flexbox, grid and responsive design</li>
+                <li>Mini website project</li>
+            </ul>
+            <a class="btn" href="html.html">View Details</a>
+        </article>
+
+        <article class="course-card">
+            <h2>JavaScript</h2>
+            <div class="course-meta">
+                <span>Intermediate</span>
+                <span>8 Weeks</span>
+                <span>32 Lessons</span>
+            </div>
+            <p>Learn variables, functions, DOM events, APIs and project-based browser scripting.</p>
+            <ul>
+                <li>Core JavaScript concepts</li>
+                <li>DOM manipulation</li>
+                <li>Interactive app project</li>
+            </ul>
+            <a class="btn" href="javascript.html">View Details</a>
+        </article>
+
+        <article class="course-card">
+            <h2>Python for Data Science</h2>
+            <div class="course-meta">
+                <span>Beginner</span>
+                <span>10 Weeks</span>
+                <span>40 Lessons</span>
+            </div>
+            <p>Use Python, data libraries and charts to analyze real datasets.</p>
+            <ul>
+                <li>Python basics</li>
+                <li>Pandas and NumPy</li>
+                <li>Data visualization project</li>
+            </ul>
+            <a class="btn" href="python.html">View Details</a>
+        </article>
+
+        <article class="course-card">
+            <h2>Machine Learning</h2>
+            <div class="course-meta">
+                <span>Advanced</span>
+                <span>12 Weeks</span>
+                <span>48 Lessons</span>
+            </div>
+            <p>Understand supervised learning, model training, evaluation and deployment basics.</p>
+            <ul>
+                <li>Regression and classification</li>
+                <li>Model evaluation</li>
+                <li>Prediction project</li>
+            </ul>
+            <a class="btn" href="machine-learning.html">View Details</a>
+        </article>
+
+        <article class="course-card">
+            <h2>Digital Marketing</h2>
+            <div class="course-meta">
+                <span>Beginner</span>
+                <span>6 Weeks</span>
+                <span>20 Lessons</span>
+            </div>
+            <p>Learn SEO, social media campaigns, email marketing and analytics basics.</p>
+            <ul>
+                <li>SEO fundamentals</li>
+                <li>Campaign planning</li>
+                <li>Marketing report project</li>
+            </ul>
+            <a class="btn" href="marketing.html">View Details</a>
+        </article>
+
+        <article class="course-card">
+            <h2>Cloud Computing Certificate</h2>
+            <div class="course-meta">
+                <span>Certificate</span>
+                <span>8 Weeks</span>
+                <span>30 Lessons</span>
+            </div>
+            <p>Study cloud services, deployment models, storage, networking and security basics.</p>
+            <ul>
+                <li>Cloud fundamentals</li>
+                <li>Hosting and storage</li>
+                <li>Final certificate assessment</li>
+            </ul>
+            <a class="btn" href="cloud-computing.html">View Details</a>
+        </article>
+    </section>
+
+    <section class="section-title">
+        <h2>Course Assessment</h2>
+        <p>Complete all course modules, then unlock the assessment exam to earn your certificate.</p>
+    </section>
+
+    <section class="assessment-section" aria-label="Course assessment">
+        <div class="assessment-grid">
+            <div>
+                <h3>Module Progress</h3>
+                <p>Mark each module finished. The assessment becomes available once every module is complete.</p>
+
+                <ul class="module-list">
+                    <li><label><input type="checkbox" class="module-checkbox"> Introduction &amp; Basics</label></li>
+                    <li><label><input type="checkbox" class="module-checkbox"> Core Concepts</label></li>
+                    <li><label><input type="checkbox" class="module-checkbox"> Practical Project Work</label></li>
+                    <li><label><input type="checkbox" class="module-checkbox"> Final Review &amp; Prep</label></li>
+                </ul>
+
+                <button class="btn assessment-start" disabled>Complete all modules to unlock exam</button>
+            </div>
+
+            <div class="assessment-right hidden">
+                <div class="question-card">
+                    <p class="question-progress"></p>
+                    <h3 class="question-text"></h3>
+                    <div class="answer-options"></div>
+                    <button class="btn assessment-next" type="button">Next Question</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="certificate-banner hidden">
+            <h3>Certificate Ready</h3>
+            <p>Well done! You completed the assessment and are eligible to claim your course certificate. If your score is too low, you can retry the exam after reviewing the modules.</p>
+            <a class="btn" href="certificates.html">Claim Certificate</a>
+        </div>
+    </section>
+
+    <section class="section-title">
+        <h2>Fees Structure</h2>
+        <p>Review pricing tiers, payment plans, and savings for each course category.</p>
+    </section>
+
+    <section class="fees-grid" aria-label="Fees structure">
+        <article class="fee-card">
+            <h3>Programming</h3>
+            <p>Courses from $129 with flexible monthly payment plans.</p>
+            <ul>
+                <li>Core web and backend skills</li>
+                <li>Project support included</li>
+                <li>Early bird discount available</li>
+            </ul>
+        </article>
+
+        <article class="fee-card">
+            <h3>Data Science</h3>
+            <p>Courses from $149 + optional mentoring support.</p>
+            <ul>
+                <li>Hands-on data projects</li>
+                <li>Installment payments available</li>
+                <li>Scholarship offers for learners</li>
+            </ul>
+        </article>
+
+        <article class="fee-card">
+            <h3>Business</h3>
+            <p>Courses from $119 with group pricing options.</p>
+            <ul>
+                <li>Marketing, finance, management</li>
+                <li>Corporate and student discounts</li>
+                <li>Certificate included</li>
+            </ul>
+        </article>
+
+        <article class="fee-card">
+            <h3>Certificates</h3>
+            <p>Programs from $99 with fast certification plans.</p>
+            <ul>
+                <li>Short, focused study paths</li>
+                <li>Exam-ready curriculum</li>
+                <li>Discounts for full-course bundles</li>
+            </ul>
+        </article>
+    </section>
+
+    <section class="section-title">
+        <h2>Download Notes</h2>
+        <p>Download course notes for study and revision.</p>
+    </section>
+
+    <section class="notes-grid" aria-label="Download course notes">
+        <article class="note-card">
+            <h3>Programming Notes</h3>
+            <p>HTML, CSS, JavaScript, React JS and Node JS basics.</p>
+            <a class="btn" href="programming-notes.txt" download>Download</a>
+        </article>
+
+        <article class="note-card">
+            <h3>Data Science Notes</h3>
+            <p>Python, machine learning, AI, Power BI and SQL notes.</p>
+            <a class="btn" href="data-science-notes.txt" download>Download</a>
+        </article>
+
+        <article class="note-card">
+            <h3>Business Notes</h3>
+            <p>Marketing, finance, management and leadership notes.</p>
+            <a class="btn" href="business-notes.txt" download>Download</a>
+        </article>
+
+        <article class="note-card">
+            <h3>Certificate Notes</h3>
+            <p>Web development, data analytics, cyber security and cloud notes.</p>
+            <a class="btn" href="certificate-notes.txt" download>Download</a>
+        </article>
+    </section>
+</main>
+
+<footer>
+<h2>Tired of Paying for Modules You Don't Use?</h2>
+<p>Switch to an LMS that's faster, smarter, and built for impact.</p>
+<button class="footer-demo-btn">Schedule My Demo</button>
+</footer>
+
+<footer class="bottom">
+<p>© 2026 LearnHub. All rights reserved.</p>
+<div class="social-icons">
+<a href="https://linkedin.com" title="LinkedIn" target="_blank">in</a>
+<a href="https://youtube.com" title="YouTube" target="_blank">▶</a>
+<a href="https://facebook.com" title="Facebook" target="_blank">f</a>
+</div>
+</footer>
+
+<script src="auth.js" data-protected="true"></script>
+<script>
+(function () {
+    const moduleCheckboxes = document.querySelectorAll('.module-checkbox');
+    const assessmentStart = document.querySelector('.assessment-start');
+    const assessmentRight = document.querySelector('.assessment-right');
+    const questionProgress = document.querySelector('.question-progress');
+    const questionText = document.querySelector('.question-text');
+    const answerOptions = document.querySelector('.answer-options');
+    const assessmentNext = document.querySelector('.assessment-next');
+    const certificateBanner = document.querySelector('.certificate-banner');
+
+    const questionPool = [
+        {
+            q: 'Which HTML element is used to define the main heading of a page?',
+            options: ['<h1>', '<header>', '<title>', '<main>'],
+            answer: 0
+        },
+        {
+            q: 'What CSS property controls the space inside an element?',
+            options: ['margin', 'padding', 'border', 'display'],
+            answer: 1
+        },
+        {
+            q: 'Which JavaScript method writes output to the browser console?',
+            options: ['console.log()', 'document.write()', 'alert()', 'window.print()'],
+            answer: 0
+        },
+        {
+            q: 'What is the primary purpose of a certificate exam?',
+            options: ['Check completed modules', 'Award official certification', 'Change course pricing', 'Create new lessons'],
+            answer: 1
+        },
+        {
+            q: 'When can a learner take the assessment exam?',
+            options: ['Any time', 'After completing all modules', 'Only after payment', 'Before modules start'],
+            answer: 1
+        }
+    ];
+
+    let questions = [];
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let selectedAnswer = -1;
+
+    function shuffle(array) {
+        return array.slice().sort(() => Math.random() - 0.5);
+    }
+
+    function updateAssessmentStart() {
+        const allChecked = Array.from(moduleCheckboxes).every((checkbox) => checkbox.checked);
+        assessmentStart.disabled = !allChecked;
+        assessmentStart.textContent = allChecked ? 'Start Assessment' : 'Complete all modules to unlock exam';
+    }
+
+    function showQuestion() {
+        const question = questions[currentQuestionIndex];
+        questionProgress.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+        questionText.textContent = question.q;
+        answerOptions.innerHTML = question.options
+            .map(
+                (option, index) =>
+                    `<label class="answer-label"><input type="radio" name="assessment-answer" value="${index}"> ${option}</label>`
+            )
+            .join('');
+
+        selectedAnswer = -1;
+        assessmentNext.textContent = currentQuestionIndex === questions.length - 1 ? 'Submit Exam' : 'Next Question';
+
+        answerOptions.querySelectorAll('input[name="assessment-answer"]').forEach((input) => {
+            input.addEventListener('change', function () {
+                selectedAnswer = Number(this.value);
+            });
+        });
+    }
+
+    function finishAssessment() {
+        assessmentRight.classList.add('hidden');
+        certificateBanner.classList.remove('hidden');
+
+        const title = score >= 3 ? 'Certificate Ready' : 'Assessment Completed';
+        const message = score >= 3
+            ? `Great job! You scored ${score}/${questions.length}. You can now claim your certificate.`
+            : `You scored ${score}/${questions.length}. Review the modules and try again to earn your certificate.`;
+
+        certificateBanner.querySelector('h3').textContent = title;
+        certificateBanner.querySelector('p').textContent = message;
+    }
+
+    function handleNext() {
+        if (selectedAnswer === -1) {
+            alert('Please select an answer before continuing.');
+            return;
+        }
+
+        if (selectedAnswer === questions[currentQuestionIndex].answer) {
+            score += 1;
+        }
+
+        currentQuestionIndex += 1;
+
+        if (currentQuestionIndex < questions.length) {
+            showQuestion();
+            return;
+        }
+
+        finishAssessment();
+    }
+
+    function startAssessment() {
+        questions = shuffle(questionPool).slice(0, 3);
+        currentQuestionIndex = 0;
+        score = 0;
+        selectedAnswer = -1;
+        assessmentRight.classList.remove('hidden');
+        certificateBanner.classList.add('hidden');
+        showQuestion();
+        assessmentRight.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    moduleCheckboxes.forEach((checkbox) => checkbox.addEventListener('change', updateAssessmentStart));
+    assessmentStart.addEventListener('click', startAssessment);
+    assessmentNext.addEventListener('click', handleNext);
+
+    updateAssessmentStart();
+})();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+Data Science Notes
+
+Python:
+- Use variables, loops, functions, lists and dictionaries.
+- Read files and process data step by step.
+
+Machine Learning:
+- Train models using input data and target output.
+- Check performance with evaluation metrics.
+
+Artificial Intelligence:
+- AI helps systems solve tasks using rules, models and data.
+- Common areas include automation, search and language processing.
+
+Power BI:
+- Import data, clean it and create dashboards.
+- Use charts, filters and KPIs for reporting.
+
+SQL:
+- Use SELECT, WHERE, JOIN, GROUP BY and ORDER BY.
+- SQL helps fetch and summarize database records.
