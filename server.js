@@ -80,6 +80,7 @@ app.use((req, res, next) => {
 app.use(express.static(path.join(__dirname, '.')));
 
 const mongoUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/lms';
+console.log("Mongo URI =", process.env.MONGODB_URI);
 
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
